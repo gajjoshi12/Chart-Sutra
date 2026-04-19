@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ChartShaala — Trade. Learn. Grow.</title>
+<meta name="description" content="ChartShaala — Trade with Zero Brokerage & 500X Margin across Indian stocks, commodities, COMEX and US markets. 24/7 deposits, lightning-fast execution." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+<link rel="icon" type="image/jpeg" href="logo.jpg" />
+</head>
+<body>
+
+<!-- Animated grid background -->
+<div class="bg-grid"></div>
+<div class="bg-gradient-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<!-- Top ticker -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="tick up">NIFTY 50 <b>24,812.45</b> <em>+0.82%</em></span>
+    <span class="tick up">SENSEX <b>81,220.11</b> <em>+0.74%</em></span>
+    <span class="tick down">BANKNIFTY <b>52,104.70</b> <em>-0.31%</em></span>
+    <span class="tick up">RELIANCE <b>2,948.20</b> <em>+1.12%</em></span>
+    <span class="tick up">TCS <b>4,112.90</b> <em>+0.65%</em></span>
+    <span class="tick down">HDFCBANK <b>1,687.45</b> <em>-0.18%</em></span>
+    <span class="tick up">GOLD <b>73,480</b> <em>+0.44%</em></span>
+    <span class="tick up">CRUDE <b>6,812</b> <em>+1.82%</em></span>
+    <span class="tick up">BTC/USD <b>68,420</b> <em>+2.14%</em></span>
+    <span class="tick up">NIFTY 50 <b>24,812.45</b> <em>+0.82%</em></span>
+    <span class="tick up">SENSEX <b>81,220.11</b> <em>+0.74%</em></span>
+    <span class="tick down">BANKNIFTY <b>52,104.70</b> <em>-0.31%</em></span>
+    <span class="tick up">RELIANCE <b>2,948.20</b> <em>+1.12%</em></span>
+    <span class="tick up">TCS <b>4,112.90</b> <em>+0.65%</em></span>
+  </div>
+</div>
+
+<!-- Navbar -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="brand">
+      <img src="logo.jpg" alt="ChartShaala" class="brand-logo" />
+      <span class="brand-text">Chart<em>Shaala</em></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <div class="drop">
+        <a href="#about">About <span class="chev">▾</span></a>
+        <div class="drop-menu">
+          <a href="#about">Why ChartShaala</a>
+          <a href="#partners">Affiliate Program</a>
+          <a href="#privacy">Privacy Policy</a>
+          <a href="#terms">Terms & Conditions</a>
+        </div>
+      </div>
+      <div class="drop">
+        <a href="#knowledge">Knowledge <span class="chev">▾</span></a>
+        <div class="drop-menu">
+          <a href="#knowledge">Equity Trading</a>
+          <a href="#knowledge">F&amp;O Trading</a>
+          <a href="#knowledge">Commodity</a>
+          <a href="#knowledge">Margin Trading</a>
+          <a href="#knowledge">Intraday</a>
+          <a href="#knowledge">Dabba Trading</a>
+        </div>
+      </div>
+      <div class="drop">
+        <a href="#products">Products <span class="chev">▾</span></a>
+        <div class="drop-menu">
+          <a href="#products">CFD</a>
+          <a href="#products">Stocks</a>
+          <a href="#products">Commodity</a>
+          <a href="#products">Indexes</a>
+        </div>
+      </div>
+      <a href="#blog">Blog</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#login" class="btn btn-ghost">Login</a>
+      <a href="#signup" class="btn btn-primary">Open Account</a>
+    </div>
+    <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="pill">
+        <span class="pulse"></span> Live · Zero Brokerage Trading
+      </div>
+      <h1 class="hero-title">
+        Trade with <span class="grad">Zero Brokerage</span> &
+        <span class="grad-green">500X Margin</span>
+      </h1>
+      <p class="hero-sub">
+        Indian stocks, commodities, COMEX and US markets — one premium terminal.
+        Lightning-fast execution, 24×7 deposits & withdrawals, and round-the-clock
+        expert support. Built for serious traders.
+      </p>
+      <div class="hero-actions">
+        <a href="#signup" class="btn btn-primary lg">
+          Start Trading Free
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#products" class="btn btn-ghost lg">Explore Markets</a>
+      </div>
+      <div class="hero-trust">
+        <div class="avatars">
+          <span style="background:#16a34a"></span>
+          <span style="background:#22c55e"></span>
+          <span style="background:#10b981"></span>
+          <span style="background:#84cc16"></span>
+          <span class="count">+</span>
+        </div>
+        <div>
+          <div class="trust-rate">
+            <span>★★★★★</span> 4.9/5
+          </div>
+          <div class="trust-text">Trusted by <b>50,000+</b> active traders</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating terminal card -->
+    <div class="hero-visual">
+      <div class="chart-card tilt">
+        <div class="card-head">
+          <div class="dots"><i></i><i></i><i></i></div>
+          <div class="symbol">
+            <b>NIFTY</b><span>50</span>
+            <em class="up">▲ +202.40 (0.82%)</em>
+          </div>
+          <div class="live"><span class="pulse"></span> LIVE</div>
+        </div>
+        <div class="chart-wrap">
+          <svg viewBox="0 0 600 260" class="chart" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#00D26A" stop-opacity="0.55"/>
+                <stop offset="100%" stop-color="#00D26A" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- grid -->
+            <g stroke="rgba(255,255,255,0.05)">
+              <line x1="0" y1="50"  x2="600" y2="50"/>
+              <line x1="0" y1="110" x2="600" y2="110"/>
+              <line x1="0" y1="170" x2="600" y2="170"/>
+              <line x1="0" y1="230" x2="600" y2="230"/>
+            </g>
+            <path class="area" d="M0,200 L40,180 L80,190 L120,150 L160,160 L200,120 L240,140 L280,100 L320,115 L360,80 L400,95 L440,60 L480,75 L520,45 L560,55 L600,30 L600,260 L0,260 Z" fill="url(#g1)"/>
+            <path class="line" d="M0,200 L40,180 L80,190 L120,150 L160,160 L200,120 L240,140 L280,100 L320,115 L360,80 L400,95 L440,60 L480,75 L520,45 L560,55 L600,30" fill="none" stroke="#00D26A" stroke-width="2.4"/>
+            <!-- candles -->
+            <g class="candles">
+              <rect x="50"  y="150" width="10" height="40" fill="#00D26A"/>
+              <rect x="110" y="130" width="10" height="55" fill="#ef4444"/>
+              <rect x="170" y="110" width="10" height="50" fill="#00D26A"/>
+              <rect x="230" y="130" width="10" height="35" fill="#ef4444"/>
+              <rect x="290" y="90"  width="10" height="45" fill="#00D26A"/>
+              <rect x="350" y="70"  width="10" height="40" fill="#00D26A"/>
+              <rect x="410" y="85"  width="10" height="30" fill="#ef4444"/>
+              <rect x="470" y="55"  width="10" height="35" fill="#00D26A"/>
+              <rect x="530" y="40"  width="10" height="25" fill="#00D26A"/>
+            </g>
+          </svg>
+        </div>
+        <div class="card-foot">
+          <div><span>Open</span><b>24,610.05</b></div>
+          <div><span>High</span><b>24,844.10</b></div>
+          <div><span>Low</span><b>24,592.30</b></div>
+          <div><span>Vol</span><b>218.4M</b></div>
+        </div>
+      </div>
+
+      <div class="floating-card fc-1">
+        <div class="fc-ico">₹</div>
+        <div>
+          <div class="fc-t">Zero Brokerage</div>
+          <div class="fc-s">On all trades</div>
+        </div>
+      </div>
+      <div class="floating-card fc-2">
+        <div class="fc-ico">⚡</div>
+        <div>
+          <div class="fc-t">500X Margin</div>
+          <div class="fc-s">Max leverage</div>
+        </div>
+      </div>
+      <div class="floating-card fc-3">
+        <div class="fc-ico">24</div>
+        <div>
+          <div class="fc-t">24/7 Support</div>
+          <div class="fc-s">Instant payouts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- stats -->
+  <div class="container stats">
+    <div class="stat"><b data-count="50000">0</b><span>Active Traders</span></div>
+    <div class="stat"><b data-count="500">0</b><span>X Margin</span></div>
+    <div class="stat"><b data-count="12000">0</b><span>Cr+ Volume</span></div>
+    <div class="stat"><b data-count="99">0</b><span>% Uptime</span></div>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">Why ChartShaala</div>
+      <h2>Built for <span class="grad-green">serious traders</span>, loved by beginners</h2>
+      <p>Everything you need to trade smarter — zero brokerage, massive leverage, and a terminal that never sleeps.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature">
+        <div class="f-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1z"/></svg></div>
+        <h3>Zero Brokerage</h3>
+        <p>Pay nothing per trade. Keep 100% of your gains across every segment — equity, F&amp;O, and commodity.</p>
+      </div>
+      <div class="feature">
+        <div class="f-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+        <h3>500X Margin</h3>
+        <p>Amplify every position with industry-leading leverage. Trade big with minimal capital, fully risk-managed.</p>
+      </div>
+      <div class="feature">
+        <div class="f-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>24/7 Deposits</h3>
+        <p>UPI, NEFT, RTGS — instant deposits and withdrawals any day, any time. Your money moves when you do.</p>
+      </div>
+      <div class="feature">
+        <div class="f-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v6H3zM3 15h18v6H3zM8 9v6M16 9v6"/></svg></div>
+        <h3>Multi-Asset Access</h3>
+        <p>Indian equities, F&amp;O, commodities, COMEX and US stocks — one login, one terminal, zero friction.</p>
+      </div>
+      <div class="feature">
+        <div class="f-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Bank-Grade Security</h3>
+        <p>256-bit encryption, segregated client funds, and 2-factor authentication. Your capital is locked tight.</p>
+      </div>
+      <div class="feature">
+        <div class="f-ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <h3>Round-the-Clock Support</h3>
+        <p>Real humans, real fast. Our trading desk answers in under 60 seconds — day, night, weekends.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="section dark" id="products">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">Products</div>
+      <h2>One account. <span class="grad-green">Every market.</span></h2>
+      <p>From Dalal Street to Wall Street — trade the world on a single premium platform.</p>
+    </div>
+
+    <div class="products-grid">
+      <div class="product">
+        <div class="p-top">
+          <div class="p-ico">📈</div>
+          <span class="badge">Most Popular</span>
+        </div>
+        <h3>CFDs</h3>
+        <p>Trade contracts-for-difference on global indices, currencies and commodities with tight spreads.</p>
+        <ul>
+          <li>500X leverage</li>
+          <li>Instant execution</li>
+          <li>Global markets</li>
+        </ul>
+        <a href="#" class="p-link">Explore CFDs →</a>
+      </div>
+      <div class="product">
+        <div class="p-top">
+          <div class="p-ico">🏦</div>
+        </div>
+        <h3>Stocks</h3>
+        <p>Indian equities and US blue chips. From Reliance to Apple — own tomorrow's winners today.</p>
+        <ul>
+          <li>NSE, BSE & NASDAQ</li>
+          <li>Fractional shares</li>
+          <li>Zero brokerage</li>
+        </ul>
+        <a href="#" class="p-link">Explore Stocks →</a>
+      </div>
+      <div class="product">
+        <div class="p-top">
+          <div class="p-ico">🪙</div>
+        </div>
+        <h3>Commodities</h3>
+        <p>Gold, silver, crude, natural gas and more. COMEX + MCX access in one unified terminal.</p>
+        <ul>
+          <li>MCX & COMEX</li>
+          <li>Live spot prices</li>
+          <li>Low margins</li>
+        </ul>
+        <a href="#" class="p-link">Explore Commodity →</a>
+      </div>
+      <div class="product">
+        <div class="p-top">
+          <div class="p-ico">📊</div>
+        </div>
+        <h3>Indexes</h3>
+        <p>Bet on the markets themselves — NIFTY, SENSEX, S&amp;P 500, NASDAQ and Dow Jones.</p>
+        <ul>
+          <li>Global indices</li>
+          <li>Weekly expiries</li>
+          <li>Low cost hedging</li>
+        </ul>
+        <a href="#" class="p-link">Explore Indexes →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Knowledge Center -->
+<section class="section" id="knowledge">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">Knowledge Center</div>
+      <h2>Learn to <span class="grad-green">trade like a pro</span></h2>
+      <p>Six structured paths — from your first candle to advanced derivatives. Free, forever.</p>
+    </div>
+
+    <div class="learn-grid">
+      <a href="#" class="learn-card">
+        <div class="lc-num">01</div>
+        <h4>Equity Trading</h4>
+        <p>Master cash market fundamentals, delivery vs intraday, and stock selection.</p>
+      </a>
+      <a href="#" class="learn-card">
+        <div class="lc-num">02</div>
+        <h4>F&amp;O Trading</h4>
+        <p>Options strategies, futures hedging, Greeks, and volatility trading.</p>
+      </a>
+      <a href="#" class="learn-card">
+        <div class="lc-num">03</div>
+        <h4>Commodity</h4>
+        <p>Crude, bullion and agri futures — how commodities really move.</p>
+      </a>
+      <a href="#" class="learn-card">
+        <div class="lc-num">04</div>
+        <h4>Margin Trading</h4>
+        <p>Leverage responsibly. Position sizing, margin calls, and risk control.</p>
+      </a>
+      <a href="#" class="learn-card">
+        <div class="lc-num">05</div>
+        <h4>Intraday</h4>
+        <p>Scalping, momentum and breakout setups proven on Indian markets.</p>
+      </a>
+      <a href="#" class="learn-card">
+        <div class="lc-num">06</div>
+        <h4>Dabba Trading</h4>
+        <p>The old-school over-the-counter markets — what they are & how they work.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Steps / How it works -->
+<section class="section dark" id="howit">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">Getting Started</div>
+      <h2>Open. Fund. <span class="grad-green">Trade.</span></h2>
+      <p>Three minutes. Paperless onboarding. Start trading before your chai cools.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="s-num">1</div>
+        <h4>Open Account</h4>
+        <p>Sign up with email & PAN. 100% digital KYC in under 3 minutes.</p>
+      </div>
+      <div class="step">
+        <div class="s-num">2</div>
+        <h4>Fund Instantly</h4>
+        <p>UPI, NEFT, or RTGS — deposits reflect in seconds, 24×7.</p>
+      </div>
+      <div class="step">
+        <div class="s-num">3</div>
+        <h4>Start Trading</h4>
+        <p>Launch our terminal, pick a market, and execute at lightning speed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section" id="testimonials">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">Testimonials</div>
+      <h2>What our <span class="grad-green">traders</span> say</h2>
+      <p>50,000+ traders. One platform. Real results.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"Switched from my old broker and my costs dropped to literally zero. The 500X margin is unreal — finally feel like I'm on a professional desk."</p>
+        <div class="t-who">
+          <div class="t-av" style="background:linear-gradient(135deg,#00D26A,#059669)">R</div>
+          <div><b>Rahul Mehta</b><span>F&O Trader · Mumbai</span></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"The terminal is buttery smooth and support actually picks up the phone at 2 AM. ChartShaala's been a game changer for my commodity plays."</p>
+        <div class="t-who">
+          <div class="t-av" style="background:linear-gradient(135deg,#22c55e,#15803d)">P</div>
+          <div><b>Priya Shah</b><span>Commodity Trader · Ahmedabad</span></div>
+        </div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"Instant withdrawals, clean charts, and a Learn section that genuinely teaches. I onboarded three friends in the first week."</p>
+        <div class="t-who">
+          <div class="t-av" style="background:linear-gradient(135deg,#84cc16,#4d7c0f)">A</div>
+          <div><b>Arjun Kapoor</b><span>Intraday Scalper · Delhi</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Partners / Affiliate -->
+<section class="section dark" id="partners">
+  <div class="container partners">
+    <div class="p-left">
+      <div class="tag">Partner with us</div>
+      <h2>Earn with <span class="grad-green">ChartShaala</span></h2>
+      <p>Whether you're an influencer, a community, or a broker — our partner programs are built to scale your income.</p>
+      <div class="partner-cards">
+        <div class="pc">
+          <h4>White Label</h4>
+          <p>Launch your own branded trading platform — we do the heavy lifting.</p>
+        </div>
+        <div class="pc">
+          <h4>Introducing Broker</h4>
+          <p>Refer clients, earn a share of every trade they make. Lifetime revenue.</p>
+        </div>
+        <div class="pc">
+          <h4>Affiliate Program</h4>
+          <p>Share your link. Get paid per signup. Real-time dashboard included.</p>
+        </div>
+      </div>
+      <a href="#" class="btn btn-primary">Become a Partner</a>
+    </div>
+    <div class="p-right">
+      <div class="earn-card">
+        <div class="earn-head">Estimated earnings</div>
+        <div class="earn-big">₹1,42,800<span>/mo</span></div>
+        <div class="earn-sub">based on 50 active referrals</div>
+        <div class="earn-bars">
+          <div><i style="height:30%"></i><span>Jan</span></div>
+          <div><i style="height:45%"></i><span>Feb</span></div>
+          <div><i style="height:38%"></i><span>Mar</span></div>
+          <div><i style="height:60%"></i><span>Apr</span></div>
+          <div><i style="height:72%"></i><span>May</span></div>
+          <div><i style="height:65%"></i><span>Jun</span></div>
+          <div><i style="height:82%"></i><span>Jul</span></div>
+          <div><i style="height:96%"></i><span>Aug</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog -->
+<section class="section" id="blog">
+  <div class="container">
+    <div class="section-head">
+      <div class="tag">News & Blog</div>
+      <h2>Insights to sharpen your <span class="grad-green">edge</span></h2>
+      <p>Weekly market notes, trading playbooks and honest strategy breakdowns.</p>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card">
+        <div class="b-img" style="background:linear-gradient(135deg,#065f46,#00D26A)"></div>
+        <div class="b-body">
+          <span class="b-tag">Strategy</span>
+          <h4>How to Build a Profitable Trading Plan</h4>
+          <p>The 7 non-negotiable rules that separate consistent winners from gamblers.</p>
+          <span class="b-read">Read more →</span>
+        </div>
+      </article>
+      <article class="blog-card">
+        <div class="b-img" style="background:linear-gradient(135deg,#1e3a8a,#00D26A)"></div>
+        <div class="b-body">
+          <span class="b-tag">Intraday</span>
+          <h4>Intraday Trading Rules You Can't Ignore</h4>
+          <p>From position sizing to exit discipline — the checklist every scalper needs.</p>
+          <span class="b-read">Read more →</span>
+        </div>
+      </article>
+      <article class="blog-card">
+        <div class="b-img" style="background:linear-gradient(135deg,#7c2d12,#00D26A)"></div>
+        <div class="b-body">
+          <span class="b-tag">Tools</span>
+          <h4>Mastering TradingView: The Ultimate Guide</h4>
+          <p>Indicators, alerts, and scripts — make your charts work harder than you.</p>
+          <span class="b-read">Read more →</span>
+        </div>
+      </article>
+      <article class="blog-card">
+        <div class="b-img" style="background:linear-gradient(135deg,#581c87,#00D26A)"></div>
+        <div class="b-body">
+          <span class="b-tag">Stocks</span>
+          <h4>Top Stocks Under ₹100 Worth Watching</h4>
+          <p>Our research desk's shortlist of small caps with real fundamental tailwinds.</p>
+          <span class="b-read">Read more →</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section dark" id="faq">
+  <div class="container faq-wrap">
+    <div class="faq-left">
+      <div class="tag">FAQ</div>
+      <h2>Got <span class="grad-green">questions?</span></h2>
+      <p>Fast answers to the things traders ask us most. Still stuck? Our team is one tap away, 24×7.</p>
+      <a href="#contact" class="btn btn-ghost">Talk to support</a>
+    </div>
+    <div class="faq-list">
+      <details>
+        <summary>Is ChartShaala really zero brokerage?<span class="plus">+</span></summary>
+        <p>Yes — zero brokerage on equity, F&O, and commodity trades. No hidden AMC, no per-order fees. You keep 100% of your gains.</p>
+      </details>
+      <details>
+        <summary>How does 500X margin work?<span class="plus">+</span></summary>
+        <p>We provide intraday leverage up to 500X on select instruments based on volatility and liquidity. Full details are inside your terminal.</p>
+      </details>
+      <details>
+        <summary>How fast are deposits and withdrawals?<span class="plus">+</span></summary>
+        <p>UPI & IMPS are instant, 24×7. NEFT and RTGS reflect within bank hours. Withdrawals typically process in under 5 minutes.</p>
+      </details>
+      <details>
+        <summary>Can I trade US stocks?<span class="plus">+</span></summary>
+        <p>Yes — Apple, Tesla, Nvidia and 500+ US names are all accessible directly from your ChartShaala terminal.</p>
+      </details>
+      <details>
+        <summary>Is my money safe?<span class="plus">+</span></summary>
+        <p>Absolutely. Client funds are segregated, bank-held, and protected by 256-bit encryption with 2FA everywhere.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="container cta-box">
+    <div>
+      <h2>Ready to trade <span class="grad-green">smarter?</span></h2>
+      <p>Open your account in 3 minutes. Fund instantly. Trade the world.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="#signup" class="btn btn-primary lg">Open Free Account</a>
+      <a href="#contact" class="btn btn-ghost lg">Talk to us</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" id="contact">
+  <div class="container foot-grid">
+    <div class="foot-brand">
+      <a href="#home" class="brand">
+        <img src="logo.jpg" alt="ChartShaala" class="brand-logo" />
+        <span class="brand-text">Chart<em>Shaala</em></span>
+      </a>
+      <p>Trade. Learn. Grow. The premium multi-asset trading terminal built for modern Indian traders.</p>
+      <div class="socials">
+        <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.89 3.77-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.9h-2.33v6.99A10 10 0 0022 12z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3.5A11 11 0 002.5 17L1 23l6.2-1.6A11 11 0 1020 3.5zm-8 18a9 9 0 01-4.6-1.3l-.3-.2-3.7 1 1-3.6-.2-.3A9 9 0 1112 21.5zm5-6.7c-.3-.1-1.6-.8-1.8-.9-.3-.1-.4-.1-.6.1s-.7.8-.8 1c-.2.1-.3.2-.5 0a7 7 0 01-2-1.3 8 8 0 01-1.5-1.9c-.2-.3 0-.4.1-.5l.4-.5.2-.4c0-.1 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.2.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1 .1-1.2z"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.5a3 3 0 00-2.1-2.1C19.5 4 12 4 12 4s-7.5 0-9.4.4A3 3 0 00.5 6.5 31 31 0 000 12a31 31 0 00.5 5.5A3 3 0 002.6 19.6C4.5 20 12 20 12 20s7.5 0 9.4-.4a3 3 0 002.1-2.1A31 31 0 0024 12a31 31 0 00-.5-5.5zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg></a>
+        <a href="#" aria-label="Telegram"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0a12 12 0 100 24 12 12 0 000-24zm5.5 8.2l-1.9 8.9c-.1.6-.5.8-1 .5l-2.8-2-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.3-4.8c.2-.2 0-.3-.3-.1L8.4 13l-2.8-.9c-.6-.2-.6-.6.1-.9l11.1-4.3c.5-.2 1 .1.7 1.3z"/></svg></a>
+        <a href="#" aria-label="X"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.8l-5.3-7-6.1 7H1.7l8-9.2L1 2h7l4.8 6.4L18.9 2zm-1.2 18h1.9L7.4 4H5.4l12.3 16z"/></svg></a>
+      </div>
+    </div>
+
+    <div>
+      <h5>Products</h5>
+      <ul>
+        <li><a href="#products">CFDs</a></li>
+        <li><a href="#products">Stocks</a></li>
+        <li><a href="#products">Commodities</a></li>
+        <li><a href="#products">Indexes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#partners">Affiliate</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Learn</h5>
+      <ul>
+        <li><a href="#knowledge">Equity Trading</a></li>
+        <li><a href="#knowledge">F&amp;O Trading</a></li>
+        <li><a href="#knowledge">Commodity</a></li>
+        <li><a href="#knowledge">Intraday</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Contact</h5>
+      <ul class="foot-contact">
+        <li>📧 support@chartshaala.com</li>
+        <li>📞 +91 98765 43210</li>
+        <li>🕐 24×7 · 365 days</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container regions">
+    <strong>Serving traders across India:</strong>
+    <span>Mumbai</span><span>Delhi</span><span>Kolkata</span><span>Gujarat</span><span>Ahmedabad</span><span>Hyderabad</span><span>Bangalore</span><span>Kanpur</span><span>Lucknow</span><span>Pune</span><span>Jaipur</span><span>Chennai</span><span>Nagpur</span>
+  </div>
+
+  <div class="container foot-bottom">
+    <p>© 2026 ChartShaala. All rights reserved.</p>
+    <div class="foot-links">
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#terms">Terms &amp; Conditions</a>
+      <a href="#risk">Risk Disclosure</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

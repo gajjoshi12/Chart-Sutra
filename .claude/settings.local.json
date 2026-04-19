@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:tradex1.live)",
+      "Bash(start \"\" \"c:/Users/Gaj/Desktop/B/ChartSutra/index.html\")"
+    ]
+  }
+}
