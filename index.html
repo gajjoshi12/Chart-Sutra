@@ -16,6 +16,24 @@
 <!-- Scroll progress bar -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
+<!-- Section side-nav dots -->
+<nav class="side-dots" id="sideDots" aria-label="section navigation">
+  <a href="#home" data-label="Home"><i></i></a>
+  <a href="#markets" data-label="Markets"><i></i></a>
+  <a href="#showcase" data-label="Product"><i></i></a>
+  <a href="#features" data-label="Features"><i></i></a>
+  <a href="#security" data-label="Security"><i></i></a>
+  <a href="#testi" data-label="Reviews"><i></i></a>
+  <a href="#pricing" data-label="Pricing"><i></i></a>
+  <a href="#faq" data-label="FAQ"><i></i></a>
+</nav>
+
+<!-- Toast notification layer -->
+<div class="toast-host" id="toastHost" aria-live="polite"></div>
+
+<!-- Confetti canvas -->
+<canvas class="confetti-canvas" id="confetti"></canvas>
+
 <!-- Custom cursor (dot + ring trail) -->
 <div class="cursor-glow" id="cursor"></div>
 <div class="cursor-dot" id="cursorDot"></div>
@@ -44,7 +62,7 @@
   <div class="container topbar-inner">
     <div class="tb-left">
       <span class="tb-dot"></span>
-      Markets Open
+      Markets Open · closes in <b class="tb-countdown" id="marketCountdown">03:42:18</b>
     </div>
     <div class="tb-right">
       <a href="#contact">📞 +91 87933 46579</a>
@@ -106,6 +124,18 @@
     <div class="orbit orbit-2"></div>
     <div class="orbit orbit-3"></div>
   </div>
+  <svg class="liquid-blob" viewBox="0 0 600 600" aria-hidden="true">
+    <defs>
+      <linearGradient id="blobG" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#00D26A" stop-opacity="0.25"/>
+        <stop offset="50%" stop-color="#22c55e" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#c8d1dc" stop-opacity="0.08"/>
+      </linearGradient>
+      <filter id="blobBlur"><feGaussianBlur stdDeviation="40"/></filter>
+    </defs>
+    <path id="blobPath" fill="url(#blobG)" filter="url(#blobBlur)"
+      d="M421,314Q401,378,344,406Q287,434,232,406Q177,378,153,324Q129,270,157,214Q185,158,240,135Q295,112,351,135Q407,158,428,214Q449,270,421,314Z"/>
+  </svg>
   <div class="container hero-grid">
     <div class="hero-copy">
       <div class="hero-pill">
@@ -570,6 +600,14 @@
   </div>
 </section>
 
+<!-- Wave divider -->
+<div class="wave-div" aria-hidden="true">
+  <svg viewBox="0 0 1200 80" preserveAspectRatio="none">
+    <path class="wd-path" d="M0,40 C150,80 300,0 600,40 C900,80 1050,0 1200,40 L1200,80 L0,80 Z" fill="url(#wdg1)"/>
+    <defs><linearGradient id="wdg1" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="rgba(0,210,106,0)"/><stop offset=".5" stop-color="rgba(0,210,106,0.08)"/><stop offset="1" stop-color="rgba(0,210,106,0)"/></linearGradient></defs>
+  </svg>
+</div>
+
 <!-- STATS BAND -->
 <section class="stats-band">
   <div class="container stats-grid">
@@ -588,6 +626,38 @@
     <div class="stat-item">
       <b data-count="24">0</b>
       <span>×7 live support</span>
+    </div>
+  </div>
+</section>
+
+<!-- Achievement badges -->
+<section class="badges-band">
+  <div class="container">
+    <div class="badges-grid">
+      <div class="ach-badge">
+        <div class="ab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1z"/></svg></div>
+        <div><b>#1 Rated</b><span>Play Store 2026</span></div>
+      </div>
+      <div class="ach-badge">
+        <div class="ab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div><b>ISO 27001</b><span>Certified</span></div>
+      </div>
+      <div class="ach-badge">
+        <div class="ab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div><b>99.99%</b><span>Uptime SLA</span></div>
+      </div>
+      <div class="ach-badge">
+        <div class="ab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div>
+        <div><b>38ms</b><span>Order latency</span></div>
+      </div>
+      <div class="ach-badge">
+        <div class="ab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <div><b>24×7</b><span>Live support</span></div>
+      </div>
+      <div class="ach-badge">
+        <div class="ab-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <div><b>₹12,000 Cr</b><span>Monthly volume</span></div>
+      </div>
     </div>
   </div>
 </section>

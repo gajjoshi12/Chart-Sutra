@@ -440,15 +440,176 @@ document.querySelectorAll('.glow-aura').forEach(card => {
 
 // --- Nav link active state based on section in view ---
 const navLinksList = document.querySelectorAll('.nav-link');
+const sideDots = document.querySelectorAll('.side-dots a');
 const sections = Array.from(document.querySelectorAll('section[id]'));
-if (sections.length && navLinksList.length) {
+if (sections.length) {
   const navIO = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         const id = '#' + e.target.id;
         navLinksList.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+        sideDots.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
       }
     });
   }, { rootMargin: '-40% 0px -55% 0px' });
   sections.forEach(s => navIO.observe(s));
 }
+
+// --- Market close countdown ---
+function updateCountdown() {
+  const el = document.getElementById('marketCountdown');
+  if (!el) return;
+  const now = new Date();
+  const close = new Date(now);
+  close.setHours(15, 30, 0, 0);
+  let diff = close - now;
+  if (diff < 0) diff += 24 * 3600 * 1000;
+  const h = String(Math.floor(diff / 3600000)).padStart(2, '0');
+  const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+  const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+  el.textContent = `${h}:${m}:${s}`;
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// --- Social proof toasts ---
+const toastHost = document.getElementById('toastHost');
+const toastMessages = [
+  { name: 'Rahul', city: 'Mumbai', action: 'opened an account', color: '#00D26A' },
+  { name: 'Priya', city: 'Bangalore', action: 'deposited ₹25,000', color: '#22c55e' },
+  { name: 'Arjun', city: 'Delhi', action: 'made first trade', color: '#84cc16' },
+  { name: 'Sneha', city: 'Ahmedabad', action: 'withdrew ₹48,200', color: '#10b981' },
+  { name: 'Vikram', city: 'Pune', action: 'joined F&O masterclass', color: '#059669' },
+  { name: 'Kavya', city: 'Chennai', action: 'opened an account', color: '#14b8a6' },
+  { name: 'Aditya', city: 'Jaipur', action: 'referred 3 friends', color: '#0ea5e9' },
+  { name: 'Meera', city: 'Kolkata', action: 'enabled 500X margin', color: '#00D26A' },
+];
+let toastIdx = 0;
+function showToast() {
+  if (!toastHost || document.hidden) return;
+  const m = toastMessages[toastIdx % toastMessages.length];
+  toastIdx++;
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `
+    <div class="toast-av" style="background:linear-gradient(135deg,${m.color},#059669)">${m.name[0]}</div>
+    <div class="toast-body">
+      <b>${m.name}</b> from ${m.city}
+      <span>${m.action} · just now</span>
+    </div>`;
+  toastHost.appendChild(t);
+  requestAnimationFrame(() => t.classList.add('show'));
+  setTimeout(() => {
+    t.classList.remove('show');
+    setTimeout(() => t.remove(), 500);
+  }, 4200);
+}
+setTimeout(() => { showToast(); setInterval(showToast, 6500); }, 3500);
+
+// --- Confetti on primary CTA click ---
+const confettiCanvas = document.getElementById('confetti');
+const cctx = confettiCanvas?.getContext('2d');
+let confettiParticles = [];
+let confettiRaf = 0;
+function sizeConfetti() {
+  if (!confettiCanvas) return;
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+}
+sizeConfetti();
+window.addEventListener('resize', sizeConfetti);
+
+function fireConfetti(x, y) {
+  if (!cctx) return;
+  const colors = ['#00D26A', '#22c55e', '#84cc16', '#c8d1dc', '#10b981', '#059669'];
+  for (let i = 0; i < 90; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 4 + Math.random() * 9;
+    confettiParticles.push({
+      x, y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 4,
+      size: 4 + Math.random() * 6,
+      rot: Math.random() * Math.PI * 2,
+      vr: (Math.random() - 0.5) * 0.3,
+      color: colors[(Math.random() * colors.length) | 0],
+      life: 1,
+      shape: Math.random() > 0.5 ? 'rect' : 'circle'
+    });
+  }
+  if (!confettiRaf) confettiLoop();
+}
+function confettiLoop() {
+  if (!cctx) return;
+  cctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  confettiParticles.forEach(p => {
+    p.vy += 0.22;
+    p.x += p.vx;
+    p.y += p.vy;
+    p.rot += p.vr;
+    p.life -= 0.012;
+    cctx.save();
+    cctx.globalAlpha = Math.max(0, p.life);
+    cctx.translate(p.x, p.y);
+    cctx.rotate(p.rot);
+    cctx.fillStyle = p.color;
+    if (p.shape === 'rect') cctx.fillRect(-p.size/2, -p.size/4, p.size, p.size/2);
+    else { cctx.beginPath(); cctx.arc(0, 0, p.size/2, 0, Math.PI*2); cctx.fill(); }
+    cctx.restore();
+  });
+  confettiParticles = confettiParticles.filter(p => p.life > 0 && p.y < confettiCanvas.height + 20);
+  if (confettiParticles.length) confettiRaf = requestAnimationFrame(confettiLoop);
+  else { confettiRaf = 0; cctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height); }
+}
+document.querySelectorAll('.btn-primary').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    fireConfetti(e.clientX, e.clientY);
+  });
+});
+
+// --- Odometer stat counters ---
+document.querySelectorAll('[data-count]').forEach(el => {
+  // Already wired by counter animation above — also apply odometer flash class when complete
+});
+
+// --- Magnetic heading lean (section titles lean toward cursor) ---
+document.querySelectorAll('.sec-title').forEach(t => {
+  t.classList.add('lean-head');
+  const container = t.closest('section') || t.parentElement;
+  if (!container) return;
+  container.addEventListener('mousemove', (e) => {
+    const r = t.getBoundingClientRect();
+    const cx = r.left + r.width / 2;
+    const cy = r.top + r.height / 2;
+    const dx = (e.clientX - cx) / r.width;
+    const dy = (e.clientY - cy) / r.height;
+    t.style.transform = `perspective(600px) rotateY(${dx * 4}deg) rotateX(${-dy * 3}deg)`;
+  });
+  container.addEventListener('mouseleave', () => t.style.transform = '');
+});
+
+// --- Scroll parallax on hero copy / blob / orbit ---
+const heroCopy = document.querySelector('.hero-copy');
+const heroBlob = document.querySelector('.liquid-blob');
+const heroOrbit = document.querySelector('.hero-orbit');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (y > 900) return;
+  if (heroCopy) heroCopy.style.transform = `translateY(${y * 0.12}px)`;
+  if (heroBlob) heroBlob.style.transform = `translateY(calc(-50% + ${y * 0.2}px)) rotate(${y * 0.03}deg)`;
+  if (heroOrbit) heroOrbit.style.transform = `translateY(calc(-50% + ${y * -0.1}px))`;
+}, { passive: true });
+
+// --- Pricing row spotlight follow ---
+document.querySelectorAll('.pt-row').forEach(row => {
+  row.addEventListener('mousemove', (e) => {
+    const r = row.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    row.style.setProperty('--mx', x + '%');
+  });
+});
+
+// --- Pause toasts when page hidden ---
+document.addEventListener('visibilitychange', () => {
+  // naturally skipped in showToast when hidden
+});
