@@ -2,19 +2,51 @@
 // ChartShaala — Advanced interactions
 // ===================================================
 
-// --- Custom cursor glow ---
+// --- Scroll progress bar ---
+const progress = document.getElementById('scrollProgress');
+if (progress) {
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    progress.style.width = pct + '%';
+  }, { passive: true });
+}
+
+// --- Custom cursor: glow + dot + ring trail ---
 const cursor = document.getElementById('cursor');
+const cDot = document.getElementById('cursorDot');
+const cRing = document.getElementById('cursorRing');
 if (cursor && !matchMedia('(pointer: coarse)').matches) {
-  let tx = 0, ty = 0, cx = 0, cy = 0;
+  let tx = 0, ty = 0, gx = 0, gy = 0, dx = 0, dy = 0, rx = 0, ry = 0;
   window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
   (function tick() {
-    cx += (tx - cx) * 0.18;
-    cy += (ty - cy) * 0.18;
-    cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%,-50%)`;
+    gx += (tx - gx) * 0.18;
+    gy += (ty - gy) * 0.18;
+    dx += (tx - dx) * 0.55;
+    dy += (ty - dy) * 0.55;
+    rx += (tx - rx) * 0.15;
+    ry += (ty - ry) * 0.15;
+    cursor.style.transform = `translate(${gx}px, ${gy}px) translate(-50%,-50%)`;
+    if (cDot) cDot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%,-50%)`;
+    if (cRing) cRing.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
     requestAnimationFrame(tick);
   })();
-  document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
-  document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
+  document.addEventListener('mouseleave', () => {
+    cursor.style.opacity = '0';
+    if (cDot) cDot.style.opacity = '0';
+    if (cRing) cRing.style.opacity = '0';
+  });
+  document.addEventListener('mouseenter', () => {
+    cursor.style.opacity = '1';
+    if (cDot) cDot.style.opacity = '1';
+    if (cRing) cRing.style.opacity = '1';
+  });
+  // Ring grows on interactive elements
+  document.querySelectorAll('a, button, .tilt-card, .sc-tab, details summary').forEach(el => {
+    el.addEventListener('mouseenter', () => cRing?.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cRing?.classList.remove('hover'));
+  });
 }
 
 // --- Sticky nav shadow ---
@@ -270,5 +302,153 @@ if (heroGlow) {
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
     if (y < 800) heroGlow.style.transform = `translate(-50%,calc(-50% + ${y * 0.3}px))`;
+  }, { passive: true });
+}
+
+// --- Floating particles in hero ---
+const particleHost = document.getElementById('particles');
+if (particleHost && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const count = window.innerWidth < 640 ? 18 : 36;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('span');
+    p.className = 'particle';
+    const size = 2 + Math.random() * 4;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * -15) + 's';
+    p.style.opacity = (0.3 + Math.random() * 0.5).toString();
+    if (Math.random() > 0.7) p.style.background = '#c8d1dc';
+    particleHost.appendChild(p);
+  }
+}
+
+// --- Title blur-to-clear reveal for section headings ---
+document.querySelectorAll('.sec-title, .fc-box h2').forEach(title => {
+  const html = title.innerHTML;
+  // Split on top-level text nodes while keeping existing <span class="grad-green"> spans intact
+  const wrap = document.createElement('div');
+  wrap.innerHTML = html;
+  const parts = [];
+  wrap.childNodes.forEach(node => {
+    if (node.nodeType === 3) {
+      node.textContent.split(/(\s+)/).forEach(w => {
+        if (w.trim()) parts.push(`<span class="word">${w}</span>`);
+        else if (w.length) parts.push(w);
+      });
+    } else {
+      const t = node.textContent || '';
+      const clone = node.cloneNode(false);
+      const cls = (node.className || '') + ' word';
+      clone.className = cls.trim();
+      clone.textContent = t;
+      parts.push(clone.outerHTML);
+    }
   });
+  title.innerHTML = parts.join('');
+  title.classList.add('title-fx');
+});
+
+const titleIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const title = e.target;
+      title.classList.add('in');
+      const words = title.querySelectorAll('.word');
+      words.forEach((w, i) => w.style.transitionDelay = (i * 70) + 'ms');
+      titleIO.unobserve(title);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.title-fx').forEach(t => titleIO.observe(t));
+
+// --- Button ripple click effect ---
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const r = btn.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const size = Math.max(r.width, r.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - r.left) + 'px';
+    ripple.style.top = (e.clientY - r.top) + 'px';
+    btn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 700);
+  });
+});
+
+// --- Live price ticker: simulate updates with flash ---
+function tickPriceStrip() {
+  document.querySelectorAll('.pstick em').forEach(em => {
+    const cur = parseFloat(em.dataset.val);
+    if (isNaN(cur)) return;
+    const direction = Math.random() > 0.5 ? 1 : -1;
+    const delta = direction * cur * (Math.random() * 0.003);
+    const next = cur + delta;
+    em.dataset.val = next.toFixed(cur > 100 ? 2 : 4);
+    em.textContent = parseFloat(em.dataset.val).toLocaleString(undefined, {
+      maximumFractionDigits: cur > 100 ? 2 : 4
+    });
+    em.classList.remove('flash-up', 'flash-down');
+    void em.offsetWidth;
+    em.classList.add(direction > 0 ? 'flash-up' : 'flash-down');
+    em.classList.toggle('up', direction > 0);
+    em.classList.toggle('down', direction < 0);
+  });
+}
+setInterval(tickPriceStrip, 2500);
+
+// --- Sparkle burst on CTA primary button hover (first time) ---
+function sparkle(btn) {
+  const r = btn.getBoundingClientRect();
+  const n = 8;
+  for (let i = 0; i < n; i++) {
+    const s = document.createElement('span');
+    s.className = 'sparkle';
+    const angle = (i / n) * Math.PI * 2;
+    const dist = 40 + Math.random() * 40;
+    s.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+    s.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+    s.style.left = '50%';
+    s.style.top = '50%';
+    btn.appendChild(s);
+    setTimeout(() => s.remove(), 900);
+  }
+}
+document.querySelectorAll('.btn-primary').forEach(btn => {
+  btn.style.position = 'relative';
+  let armed = true;
+  btn.addEventListener('mouseenter', () => {
+    if (!armed) return;
+    armed = false;
+    sparkle(btn);
+    setTimeout(() => { armed = true; }, 1200);
+  });
+});
+
+// --- Glow follow on glow-aura cards (mouse-position gradient) ---
+document.querySelectorAll('.glow-aura').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const r = card.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    const y = ((e.clientY - r.top) / r.height) * 100;
+    card.style.setProperty('--gx', x + '%');
+    card.style.setProperty('--gy', y + '%');
+  });
+});
+
+// --- Nav link active state based on section in view ---
+const navLinksList = document.querySelectorAll('.nav-link');
+const sections = Array.from(document.querySelectorAll('section[id]'));
+if (sections.length && navLinksList.length) {
+  const navIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = '#' + e.target.id;
+        navLinksList.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => navIO.observe(s));
 }

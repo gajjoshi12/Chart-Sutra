@@ -38,19 +38,42 @@ a{color:inherit;text-decoration:none}
 ul{list-style:none}
 button{font-family:inherit}
 
-/* --- Custom cursor --- */
-.cursor-glow{
+/* --- Scroll progress bar --- */
+.scroll-progress{
   position:fixed;top:0;left:0;z-index:9999;
-  width:320px;height:320px;
-  border-radius:50%;
+  height:3px;width:0%;
+  background:linear-gradient(90deg,#00D26A,#22c55e,#c8d1dc);
+  box-shadow:0 0 12px rgba(0,210,106,0.6);
+  transition:width .08s linear;
+}
+
+/* --- Custom cursor (glow + dot + ring) --- */
+.cursor-glow{
+  position:fixed;top:0;left:0;z-index:9998;
+  width:320px;height:320px;border-radius:50%;
   background:radial-gradient(circle,rgba(0,210,106,0.15),transparent 60%);
+  transform:translate(-50%,-50%);pointer-events:none;
+  transition:opacity .3s;
+  mix-blend-mode:screen;will-change:transform;
+}
+.cursor-dot{
+  position:fixed;top:0;left:0;z-index:9999;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);pointer-events:none;
   transform:translate(-50%,-50%);
-  pointer-events:none;
-  transition:opacity .3s,transform .15s ease-out;
-  mix-blend-mode:screen;
+  transition:opacity .2s,transform .05s linear;
+  box-shadow:0 0 10px var(--green);
+}
+.cursor-ring{
+  position:fixed;top:0;left:0;z-index:9998;
+  width:40px;height:40px;border-radius:50%;
+  border:1.5px solid rgba(0,210,106,0.5);
+  pointer-events:none;transform:translate(-50%,-50%);
+  transition:width .25s,height .25s,border-color .25s,opacity .3s;
   will-change:transform;
 }
-@media (pointer: coarse){ .cursor-glow{display:none} }
+.cursor-ring.hover{width:60px;height:60px;border-color:rgba(0,210,106,0.9);background:rgba(0,210,106,0.08)}
+@media (pointer: coarse){ .cursor-glow,.cursor-dot,.cursor-ring{display:none} }
 
 /* --- Animated mesh background --- */
 .bg-mesh{position:fixed;inset:0;z-index:-3;overflow:hidden;pointer-events:none}
@@ -75,6 +98,110 @@ button{font-family:inherit}
   position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.03;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
 }
+.bg-lines{position:fixed;inset:0;z-index:-1;pointer-events:none;width:100%;height:100%}
+
+/* --- Price strip (live ticker between topbar & nav) --- */
+.price-strip{
+  background:rgba(0,0,0,0.55);
+  border-bottom:1px solid rgba(0,210,106,0.12);
+  overflow:hidden;position:relative;z-index:40;
+  backdrop-filter:blur(10px);
+}
+.price-strip::before,.price-strip::after{
+  content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none;
+}
+.price-strip::before{left:0;background:linear-gradient(90deg,rgba(5,8,16,1),transparent)}
+.price-strip::after{right:0;background:linear-gradient(-90deg,rgba(5,8,16,1),transparent)}
+.ps-track{
+  display:inline-flex;gap:42px;white-space:nowrap;
+  padding:10px 0;
+  animation:scrollX 55s linear infinite;
+  font-family:'Space Grotesk',monospace;
+  font-size:13px;
+}
+.price-strip:hover .ps-track{animation-play-state:paused}
+.pstick{display:inline-flex;align-items:center;gap:10px}
+.pstick b{color:var(--silver);font-weight:600;letter-spacing:.3px}
+.pstick em{font-style:normal;font-weight:700;transition:background .4s,color .3s;padding:2px 6px;border-radius:4px}
+.pstick em.flash-up{background:rgba(0,210,106,0.25);color:#fff}
+.pstick em.flash-down{background:rgba(239,68,68,0.25);color:#fff}
+.pstick i{font-style:normal;font-size:11.5px;font-weight:700}
+@keyframes scrollX{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* --- Diagonal ribbon marquee --- */
+.ribbon-wrap{
+  position:relative;margin:-10px 0;z-index:5;
+  height:90px;overflow:hidden;
+  pointer-events:none;
+}
+.ribbon{
+  position:absolute;left:-10%;width:120%;
+  padding:12px 0;overflow:hidden;
+  border-top:1px solid rgba(0,210,106,0.25);
+  border-bottom:1px solid rgba(0,210,106,0.25);
+  backdrop-filter:blur(2px);
+}
+.ribbon-a{
+  top:10px;transform:rotate(-2deg);
+  background:linear-gradient(90deg,rgba(0,210,106,0.08),rgba(34,197,94,0.12),rgba(0,210,106,0.08));
+}
+.ribbon-b{
+  top:48px;transform:rotate(1.5deg);
+  background:linear-gradient(90deg,rgba(255,255,255,0.03),rgba(0,210,106,0.08),rgba(255,255,255,0.03));
+}
+.ribbon-track{
+  display:inline-flex;gap:30px;white-space:nowrap;align-items:center;
+  animation:scrollX 35s linear infinite;
+  font-family:'Space Grotesk';
+}
+.ribbon-b .ribbon-track{animation-duration:42s;animation-direction:reverse}
+.ribbon-track span{
+  font-size:18px;font-weight:700;letter-spacing:1.5px;
+  color:var(--text);text-transform:uppercase;
+}
+.ribbon-b .ribbon-track span{color:var(--green)}
+.ribbon-track em{color:var(--green);font-size:10px;font-style:normal}
+
+/* --- Hero particles --- */
+.particles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.particle{
+  position:absolute;bottom:-20px;
+  width:4px;height:4px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 8px var(--green);
+  opacity:0;
+  animation:particleUp linear infinite;
+}
+@keyframes particleUp{
+  0%{transform:translateY(0) scale(.5);opacity:0}
+  10%{opacity:.8}
+  90%{opacity:.4}
+  100%{transform:translateY(-120vh) scale(1.2);opacity:0}
+}
+
+/* --- Hero orbit rings --- */
+.hero-orbit{
+  position:absolute;top:50%;right:-20%;
+  width:900px;height:900px;
+  transform:translateY(-50%);
+  pointer-events:none;z-index:0;
+  opacity:.55;
+}
+.orbit{
+  position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(0,210,106,0.15);
+  animation:orbitSpin 30s linear infinite;
+}
+.orbit::before{
+  content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);
+  width:8px;height:8px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 18px var(--green);
+}
+.orbit-1{inset:0}
+.orbit-2{inset:15%;animation-duration:22s;animation-direction:reverse;opacity:.7}
+.orbit-3{inset:32%;animation-duration:14s;opacity:.5}
+@keyframes orbitSpin{to{transform:rotate(360deg)}}
+@media (max-width:900px){.hero-orbit{display:none}}
 
 .container{max-width:1280px;margin:0 auto;padding:0 24px}
 
@@ -858,6 +985,215 @@ button{font-family:inherit}
 /* --- Scroll reveal --- */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .8s cubic-bezier(.2,.8,.2,1)}
 .reveal.in{opacity:1;transform:translateY(0)}
+
+/* ============================================================
+   EXTRA ANIMATIONS — advanced polish
+   ============================================================ */
+
+/* Blur-to-clear text reveal (applied to section titles via JS .title-fx) */
+.title-fx .word{
+  display:inline-block;opacity:0;filter:blur(14px);
+  transform:translateY(12px);
+  transition:opacity .7s cubic-bezier(.2,.8,.2,1),filter .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1);
+}
+.title-fx.in .word{opacity:1;filter:blur(0);transform:translateY(0)}
+
+/* Glitch effect on brand logo text on hover */
+.brand:hover .brand-text{
+  animation:glitch 0.4s linear;
+}
+@keyframes glitch{
+  0%,100%{text-shadow:none;transform:translateX(0)}
+  20%{text-shadow:-2px 0 #00D26A, 2px 0 #c8d1dc;transform:translateX(-1px)}
+  40%{text-shadow:2px 0 #00D26A, -2px 0 #c8d1dc;transform:translateX(1px)}
+  60%{text-shadow:-1px 0 #22c55e, 1px 0 #ef4444;transform:translateX(-0.5px)}
+  80%{text-shadow:1px 0 #00D26A, -1px 0 #c8d1dc;transform:translateX(0.5px)}
+}
+
+/* Rotating conic border — for CTA + best pricing column */
+.conic-border{position:relative;z-index:1}
+.conic-border::before{
+  content:'';position:absolute;inset:-2px;z-index:-1;border-radius:inherit;
+  background:conic-gradient(from 0deg,transparent 0%,#00D26A 20%,transparent 40%,#22c55e 60%,transparent 80%,#00D26A 100%);
+  animation:conicSpin 4s linear infinite;
+  filter:blur(1px);
+}
+.conic-border::after{
+  content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;
+  background:inherit;
+}
+@keyframes conicSpin{to{transform:rotate(360deg)}}
+
+/* Button ripple on click */
+.btn{position:relative;overflow:hidden}
+.btn .ripple{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,0.45);
+  transform:translate(-50%,-50%) scale(0);
+  animation:ripple 0.7s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes ripple{to{transform:translate(-50%,-50%) scale(20);opacity:0}}
+
+/* Card glow aura (testimonials + how-it-works) */
+.glow-aura{position:relative;isolation:isolate}
+.glow-aura::before{
+  content:'';position:absolute;inset:-1px;border-radius:inherit;
+  background:linear-gradient(135deg,rgba(0,210,106,0.5),transparent 40%,rgba(34,197,94,0.4) 80%,transparent);
+  opacity:0;transition:opacity .4s;z-index:-1;
+  filter:blur(12px);
+}
+.glow-aura:hover::before{opacity:1}
+
+/* Price-value flash animation (tick updates) */
+.flash-up{animation:flashUp .6s ease-out}
+.flash-down{animation:flashDown .6s ease-out}
+@keyframes flashUp{
+  0%{background:rgba(0,210,106,0.6);color:#fff;transform:translateY(-2px)}
+  100%{background:transparent;color:var(--green);transform:translateY(0)}
+}
+@keyframes flashDown{
+  0%{background:rgba(239,68,68,0.6);color:#fff;transform:translateY(2px)}
+  100%{background:transparent;color:var(--red);transform:translateY(0)}
+}
+
+/* Section wave divider */
+.wave-divider{
+  position:relative;height:80px;overflow:hidden;margin-top:-40px;pointer-events:none;
+}
+.wave-divider svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.wave-divider .w-line{stroke-dasharray:2 6;animation:wavePulse 4s linear infinite;opacity:.4}
+@keyframes wavePulse{to{stroke-dashoffset:-40}}
+
+/* Stat counter with digit glow on increment */
+.stat-item b{position:relative}
+.stat-item b::after{
+  content:'';position:absolute;inset:-4px;border-radius:8px;
+  background:radial-gradient(circle,rgba(0,210,106,0.25),transparent 70%);
+  opacity:0;transition:opacity .4s;z-index:-1;filter:blur(10px);
+}
+.stat-item:hover b::after{opacity:1}
+
+/* Market card icon — escape on hover */
+.market-card .mc-ico{position:relative;overflow:visible}
+.market-card:hover .mc-ico::after{
+  content:'';position:absolute;inset:-8px;border-radius:18px;
+  border:1px solid rgba(0,210,106,0.4);
+  animation:mcRing .8s ease-out forwards;
+}
+@keyframes mcRing{
+  0%{opacity:1;transform:scale(0.9)}
+  100%{opacity:0;transform:scale(1.4)}
+}
+
+/* Floating trade icons in hero background */
+.float-icon{
+  position:absolute;pointer-events:none;opacity:.08;
+  font-family:'Space Grotesk';font-weight:800;font-size:48px;
+  color:var(--green);
+  animation:driftFloat 12s ease-in-out infinite;
+}
+@keyframes driftFloat{
+  0%,100%{transform:translate(0,0) rotate(0deg)}
+  50%{transform:translate(20px,-30px) rotate(4deg)}
+}
+
+/* Number tumbler-style counter (used for stats) */
+.num-tumbler{
+  display:inline-flex;overflow:hidden;
+}
+.num-tumbler .digit{
+  display:inline-block;position:relative;
+}
+
+/* Animated gradient border for featured elements */
+.grad-border{
+  position:relative;border-radius:inherit;
+  background:linear-gradient(var(--bg),var(--bg)) padding-box,
+             linear-gradient(135deg,#00D26A,#22c55e,#c8d1dc,#00D26A) border-box;
+  background-size:100% 100%,300% 300%;
+  border:1.5px solid transparent;
+  animation:gradBorderShift 5s ease infinite;
+}
+@keyframes gradBorderShift{
+  0%,100%{background-position:0% 0%,0% 50%}
+  50%{background-position:0% 0%,100% 50%}
+}
+
+/* Pulsing dot indicators (live badges) */
+.live-dot{
+  display:inline-block;width:8px;height:8px;border-radius:50%;
+  background:#ef4444;
+  box-shadow:0 0 0 0 rgba(239,68,68,.6);
+  animation:liveBlink 1.8s infinite;
+}
+@keyframes liveBlink{
+  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(239,68,68,.6)}
+  50%{transform:scale(1.2);box-shadow:0 0 0 8px rgba(239,68,68,0)}
+}
+
+/* Section anchor-light effect */
+.anchor-light{position:relative}
+.anchor-light::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:200px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--green),transparent);
+  opacity:.5;
+}
+
+/* Hover lift for generic cards */
+.hover-lift{transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s}
+.hover-lift:hover{transform:translateY(-6px)}
+
+/* Sparkle burst (triggered by JS on .sparkle-on-hover) */
+.sparkle{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  background:var(--green);box-shadow:0 0 10px var(--green);
+  pointer-events:none;opacity:0;
+  animation:sparkleOut .9s ease-out forwards;
+}
+@keyframes sparkleOut{
+  0%{opacity:1;transform:translate(0,0) scale(.4)}
+  100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1)}
+}
+
+/* Shimmer skeleton for chart headers */
+.shimmer{
+  position:relative;overflow:hidden;
+}
+.shimmer::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(110deg,transparent 30%,rgba(0,210,106,0.12) 50%,transparent 70%);
+  animation:shimmerMove 3s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes shimmerMove{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+
+/* Chart tick pulse */
+.ps-dot{filter:drop-shadow(0 0 6px var(--green))}
+
+/* Smooth 3D card rotate on scroll (pricing table) */
+.pricing-table{
+  transition:transform .8s cubic-bezier(.2,.8,.2,1);
+  transform-style:preserve-3d;
+}
+.pricing-table.reveal{transform:rotateX(-6deg) translateY(40px)}
+.pricing-table.reveal.in{transform:rotateX(0) translateY(0)}
+
+/* Animated underline on nav link active state */
+.nav-link.active::after{width:100%}
+
+/* Final CTA button glow pulse */
+.fc-actions .btn-primary{
+  animation:ctaPulse 2.4s ease-in-out infinite;
+}
+@keyframes ctaPulse{
+  0%,100%{box-shadow:0 10px 30px -10px rgba(0,210,106,0.35),inset 0 1px 0 rgba(255,255,255,.35)}
+  50%{box-shadow:0 18px 50px -8px rgba(0,210,106,0.7),inset 0 1px 0 rgba(255,255,255,.4)}
+}
+
+/* Prevent horizontal layout shift from particles */
+.hero{position:relative;overflow:hidden}
 
 /* ============================================================
    RESPONSIVE

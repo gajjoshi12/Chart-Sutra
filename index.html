@@ -13,8 +13,13 @@
 </head>
 <body>
 
-<!-- Custom cursor glow -->
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- Custom cursor (dot + ring trail) -->
 <div class="cursor-glow" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- Animated backgrounds -->
 <div class="bg-mesh">
@@ -24,18 +29,45 @@
 </div>
 <div class="bg-grid"></div>
 <div class="bg-noise"></div>
+<svg class="bg-lines" aria-hidden="true">
+  <defs>
+    <linearGradient id="lineGrad" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0%" stop-color="#00D26A" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#00D26A" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#00D26A" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>
 
 <!-- Top strip -->
 <div class="topbar">
   <div class="container topbar-inner">
     <div class="tb-left">
       <span class="tb-dot"></span>
-      Markets Open · NSE up 0.82% · BANKNIFTY down 0.31%
+      Markets Open
     </div>
     <div class="tb-right">
       <a href="#contact">📞 +91 87933 46579</a>
       <a href="#">💬 WhatsApp Support</a>
     </div>
+  </div>
+</div>
+
+<!-- Live price ticker strip -->
+<div class="price-strip" id="priceStrip">
+  <div class="ps-track">
+    <span class="pstick"><b>NIFTY 50</b><em data-val="24812.45" class="up">24,812.45</em><i class="up">+0.82%</i></span>
+    <span class="pstick"><b>SENSEX</b><em data-val="81220.11" class="up">81,220.11</em><i class="up">+0.74%</i></span>
+    <span class="pstick"><b>BANKNIFTY</b><em data-val="52104.70" class="down">52,104.70</em><i class="down">−0.31%</i></span>
+    <span class="pstick"><b>RELIANCE</b><em data-val="2948.20" class="up">2,948.20</em><i class="up">+1.12%</i></span>
+    <span class="pstick"><b>TCS</b><em data-val="4112.90" class="up">4,112.90</em><i class="up">+0.65%</i></span>
+    <span class="pstick"><b>HDFCBANK</b><em data-val="1687.45" class="down">1,687.45</em><i class="down">−0.18%</i></span>
+    <span class="pstick"><b>GOLD</b><em data-val="73480" class="up">73,480</em><i class="up">+0.44%</i></span>
+    <span class="pstick"><b>CRUDE</b><em data-val="6812" class="up">6,812</em><i class="up">+1.82%</i></span>
+    <span class="pstick"><b>BTC/USD</b><em data-val="68420" class="up">68,420</em><i class="up">+2.14%</i></span>
+    <span class="pstick"><b>ETH/USD</b><em data-val="3482" class="up">3,482</em><i class="up">+1.74%</i></span>
+    <span class="pstick"><b>EUR/USD</b><em data-val="1.0842" class="up">1.0842</em><i class="up">+0.12%</i></span>
+    <span class="pstick"><b>TSLA</b><em data-val="248.40" class="down">248.40</em><i class="down">−0.82%</i></span>
   </div>
 </div>
 
@@ -68,6 +100,12 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-glow"></div>
+  <div class="particles" id="particles"></div>
+  <div class="hero-orbit">
+    <div class="orbit orbit-1"></div>
+    <div class="orbit orbit-2"></div>
+    <div class="orbit orbit-3"></div>
+  </div>
   <div class="container hero-grid">
     <div class="hero-copy">
       <div class="hero-pill">
@@ -186,6 +224,40 @@
     </div>
   </div>
 </section>
+
+<!-- Diagonal ribbon marquee -->
+<div class="ribbon-wrap">
+  <div class="ribbon ribbon-a">
+    <div class="ribbon-track">
+      <span>Zero Brokerage</span><em>★</em>
+      <span>500X Margin</span><em>★</em>
+      <span>Instant Payouts</span><em>★</em>
+      <span>24×7 Support</span><em>★</em>
+      <span>Bank-Grade Security</span><em>★</em>
+      <span>Zero Brokerage</span><em>★</em>
+      <span>500X Margin</span><em>★</em>
+      <span>Instant Payouts</span><em>★</em>
+      <span>24×7 Support</span><em>★</em>
+      <span>Bank-Grade Security</span><em>★</em>
+    </div>
+  </div>
+  <div class="ribbon ribbon-b">
+    <div class="ribbon-track">
+      <span>NSE</span><em>◆</em>
+      <span>MCX</span><em>◆</em>
+      <span>Forex</span><em>◆</em>
+      <span>US Stocks</span><em>◆</em>
+      <span>Crypto</span><em>◆</em>
+      <span>Comex</span><em>◆</em>
+      <span>NSE</span><em>◆</em>
+      <span>MCX</span><em>◆</em>
+      <span>Forex</span><em>◆</em>
+      <span>US Stocks</span><em>◆</em>
+      <span>Crypto</span><em>◆</em>
+      <span>Comex</span><em>◆</em>
+    </div>
+  </div>
+</div>
 
 <!-- Exchange marquee -->
 <section class="marquee-section">
@@ -529,7 +601,7 @@
       <p class="sec-sub">Three steps. Zero paperwork. One premium terminal.</p>
     </div>
     <div class="howit-wrap">
-      <div class="howit-step">
+      <div class="howit-step glow-aura">
         <div class="hs-num">01</div>
         <h4>Sign up</h4>
         <p>Email, PAN and Aadhaar. Video KYC done in a tap — paperless, fully digital.</p>
@@ -537,7 +609,7 @@
       <div class="howit-arrow">
         <svg width="60" height="14" viewBox="0 0 60 14" fill="none"><path d="M0 7h54m0 0l-6-6m6 6l-6 6" stroke="url(#arrowg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="arrowg" x1="0" x2="60" y1="0" y2="0"><stop offset="0" stop-color="#00D26A"/><stop offset="1" stop-color="#22c55e"/></linearGradient></defs></svg>
       </div>
-      <div class="howit-step">
+      <div class="howit-step glow-aura">
         <div class="hs-num">02</div>
         <h4>Deposit</h4>
         <p>Fund via UPI, IMPS or NEFT. Reflects instantly — even at 2 AM on a Sunday.</p>
@@ -545,7 +617,7 @@
       <div class="howit-arrow">
         <svg width="60" height="14" viewBox="0 0 60 14" fill="none"><path d="M0 7h54m0 0l-6-6m6 6l-6 6" stroke="url(#arrowg2)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="arrowg2" x1="0" x2="60" y1="0" y2="0"><stop offset="0" stop-color="#00D26A"/><stop offset="1" stop-color="#22c55e"/></linearGradient></defs></svg>
       </div>
-      <div class="howit-step">
+      <div class="howit-step glow-aura">
         <div class="hs-num">03</div>
         <h4>Trade</h4>
         <p>Launch the terminal, pick a market, execute at sub-40ms latency.</p>
@@ -597,7 +669,7 @@
     <div class="testi-carousel" id="testiCarousel">
       <button class="tc-nav prev" aria-label="prev">‹</button>
       <div class="tc-track">
-        <div class="testi-card">
+        <div class="testi-card glow-aura">
           <div class="stars">★★★★★</div>
           <p>The terminal is faster than anything I've used. Order fills are instant and withdrawals hit my bank before I refresh. This is how broking should feel.</p>
           <div class="tc-who">
@@ -605,7 +677,7 @@
             <div><b>Kabir Mehrotra</b><span>F&amp;O Trader · Mumbai</span></div>
           </div>
         </div>
-        <div class="testi-card">
+        <div class="testi-card glow-aura">
           <div class="stars">★★★★★</div>
           <p>My RM speaks Hindi, understands my style, and answers on WhatsApp at midnight. Plus zero brokerage actually means zero. No catches.</p>
           <div class="tc-who">
@@ -613,7 +685,7 @@
             <div><b>Ruchit Singh</b><span>Swing Trader · Lucknow</span></div>
           </div>
         </div>
-        <div class="testi-card">
+        <div class="testi-card glow-aura">
           <div class="stars">★★★★★</div>
           <p>I trade crude overnight. Deposits at 2 AM reflect instantly, live support actually picks up, and the margin alerts saved me twice last month.</p>
           <div class="tc-who">
@@ -621,7 +693,7 @@
             <div><b>Sheetal Wadhwa</b><span>Commodity Trader · Delhi</span></div>
           </div>
         </div>
-        <div class="testi-card">
+        <div class="testi-card glow-aura">
           <div class="stars">★★★★★</div>
           <p>Started with ₹500 as a beginner. Free courses + daily webinars made me profitable in six months. ChartShaala is genuinely for everyone.</p>
           <div class="tc-who">
@@ -629,7 +701,7 @@
             <div><b>Himanshi Rao</b><span>Beginner · Jaipur</span></div>
           </div>
         </div>
-        <div class="testi-card">
+        <div class="testi-card glow-aura">
           <div class="stars">★★★★★</div>
           <p>Switched from a legacy broker. Charts are sharper, latency is half, and I save ₹12,000 a month just in brokerage. No-brainer.</p>
           <div class="tc-who">
@@ -658,7 +730,7 @@
         <div class="pt-col best">
           <img src="logo.jpg" alt="" class="pt-logo"/>
           <b>ChartShaala</b>
-          <span class="pt-pill">Recommended</span>
+          <span class="pt-pill"><span class="live-dot"></span>Recommended</span>
         </div>
         <div class="pt-col"><b>Traditional Broker A</b></div>
         <div class="pt-col"><b>Traditional Broker B</b></div>
